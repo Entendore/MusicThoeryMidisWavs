@@ -1,4 +1,3 @@
-# musictheory/config.py
 # ============================
 # Core theory data, mappings, and genre presets
 # ============================
@@ -12,21 +11,29 @@ NOTE_NUMS = {
     "E":64,"F":65,"F#":66,"Gb":66,"G":67,"G#":68,
     "Ab":68,"A":69,"A#":70,"Bb":70,"B":71
 }
+BASE_NOTE_NUMS = {
+    "C": 0, "C#": 1, "Db": 1, "D": 2, "D#": 3, "Eb": 3,
+    "E": 4, "F": 5, "F#": 6, "Gb": 6, "G": 7, "G#": 8,
+    "Ab": 8, "A": 9, "A#": 10, "Bb": 10, "B": 11
+}
+
 
 # ----------------------------
 # CHORD FORMULAS
 # ----------------------------
 CHORD_FORMULAS = {
-    "major":[0,4,7], "minor":[0,3,7],
-    "dominant7":[0,4,7,10], "minor7":[0,3,7,10], "major7":[0,4,7,11],
-    "augmented":[0,4,8], "diminished":[0,3,6],
-    "half_diminished7":[0,3,6,10], "diminished7":[0,3,6,9],
-    "sus2":[0,2,7], "sus4":[0,5,7],
-    "major6":[0,4,7,9], "minor6":[0,3,7,9],
-    "9":[0,4,7,10,14], "minor9":[0,3,7,10,14], "major9":[0,4,7,11,14],
-    "11":[0,4,7,10,14,17], "13":[0,4,7,10,14,17,21],
-    "add9":[0,4,7,14], "minor_add9":[0,3,7,14],
-    "power":[0,7]  # 5th chords
+    "major":[0,4,7], "minor":[0,3,7], 
+    "major6":[0,4,7,9], "minor6":[0,3,7,9], "minor7":[0,3,7,10], "major7":[0,4,7,11], "minor9":[0,3,7,10,14], "major9":[0,4,7,11,14],
+    "dominant":[0,4,7], "dominant7":[0,4,7,10], "dominant9":[0,4,7,10,14], "dominant11":[0,4,7,10,14,17], "dominant13":[0,4,7,10,14,17,21],
+    "sus2":[0,2,7], "sus4":[0,5,7], 
+    "6":[0,4,7,9],"7":[0,4,7,11], "9":[0,4,7,10,14], "11":[0,4,7,10,14,17], "13":[0,4,7,10,14,17,21],
+    "add9":[0,4,7,14],
+    "power":[0,7], "power9":[0,7,14], "power11":[0,7,14,17], "power13":[0,7,14,17,21], 
+    "augmented":[0,4,8], "diminished":[0,3,6], "half_diminished":[0,3,6],
+    "augmented7":[0,4,8,11], "diminished7":[0,3,6,9], "half_diminished7":[0,3,6,10],
+    "augmented9":[0,4,8,14], "diminished9":[0,3,6,10,14], "half_diminished9":[0,3,6,10,14],
+    "augmented11":[0,4,8,14,17], "diminished11":[0,3,6,10,14,17], "half_diminished11":[0,3,6,10,14,17],
+    "augmented13":[0,4,8,14,17,21], "diminished13":[0,3,6,10,14,17,21], "half_diminished13":[0,3,6,10,14,17,21]
 }
 
 # ----------------------------
@@ -63,13 +70,33 @@ MODES = {
 # RHYTHM PATTERNS
 # ----------------------------
 RHYTHM_PATTERNS = {
+    "whole": [1],
+    "half": [0.5]*2,
+    "quarter": [0.25]*4,
+    "eighth": [0.125]*8,
+    "sixteenth": [0.0625]*16,
+    "32nd": [0.03125]*32,
     "straight":[1,1,1,1],
-    "syncopated":[0.75,0.25,1,1],
-    "triplet":[2/3,2/3,2/3],
+    "triplet": [1/3]*3, 
+    "quintuplet": [1/5]*5,
+    "syncopated": [0.5, 0.25, 0.25, 0.5, 0.5],
+    "rock_backbeat": [0.25, 0.25, 0.5, 0.25, 0.25, 0.5],
+    "bossa_nova": [0.25, 0.125, 0.125, 0.25, 0.25, 0.125, 0.125],
     "swing":[0.66,0.34,0.66,0.34],
-    "clave_3-2":[1,0.5,0.5,1,1],   # Latin clave
+    "clave_3-2":[1,0.5,0.5,1,1],
     "clave_2-3":[0.5,1,0.5,1,1],
     "polyrhythm_3_over_4":[1/3,1/3,1/3,0.5,0.5,0.5,0.5],
+}
+
+RHYTHMS = {
+    "whole": [1],
+    "half": [0.5],
+    "quarter": [0.25],
+    "eighth": [0.125],
+    "sixteenth": [0.0625],
+    "32nd": [0.03125],
+    "triplet": [1/3], 
+    "quintuplet": [1/5],
 }
 
 # ----------------------------
@@ -83,18 +110,153 @@ ROMAN_TO_CHORD = {
     "III":(4,"major"), "VI":(9,"major"), "VII":(11,"major"),
 }
 
-PROGRESSIONS = {
-    "jazz_ii-V-I":["ii","V","I"],
-    "jazz_turnaround":["I","vi","ii","V"],
-    "pop_axis":["I","V","vi","IV"],
-    "blues_12bar":["I","I","I","I","IV","IV","I","I","V","IV","I","V"],
-    "circle_of_fifths":["I","IV","vii°","iii","vi","ii","V","I"],
-    "funk_jam":["i","bVII","IV","i"],
-    "latin_salsa":["I","IV","V","IV"],
-    "edm_drop":["vi","IV","I","V"],
-    "film_epic":["I","V","vi","iii","IV","I","IV","V"],
+ROMAN_CHORD_QUALITY = {
+    "I": "major",      "i": "minor",
+    "II": "major",     "ii": "minor",
+    "III": "major",    "iii": "minor",
+    "IV": "major",     "iv": "minor",
+    "V": "major",      "v": "minor",
+    "VI": "major",     "vi": "minor",
+    "VII": "major",    "vii": "minor",
+    
+    "vii°": "dim",     "ii°": "dim",    
+    "V7": "7",         "I7": "7",      
+    "maj7": "maj7",    "min7": "min7",  
+    
+    "bII": "major",    "bVI": "major", 
+    "bVII": "major",
 }
 
+ROMAN_TO_DEGREE = {
+    "I": 0, "i": 0,
+    "II": 1, "ii": 1,
+    "III": 2, "iii": 2,
+    "IV": 3, "iv": 3,
+    "V": 4, "v": 4,
+    "VI": 5, "vi": 5,
+    "VII": 6, "vii": 6,
+    "bII": 1, "biii": 2, "bVI": 5, "bVII": 6, "bII°": 1  # flats
+}
+
+# Humanization ranges (to avoid robotic feel)
+HUMANIZATION = {
+    "timing_jitter": 0.02,   # up to ±2% offset in rhythm
+    "velocity_jitter": 0.05, # up to ±5% change in dynamics
+    "swing_strength": 0.15   # push-pull feel for swing
+}
+
+# Dynamics levels (MIDI velocity ranges)
+DYNAMICS = {
+    "ppp": (15,29),   # pianississimo, extremely soft
+    "pp":  (30,45),   # pianissimo
+    "p":   (46,60),   # piano
+    "mp":  (61,75),   # mezzo-piano
+    "mf":  (76,90),   # mezzo-forte
+    "f":   (91,105),  # forte
+    "ff":  (106,120), # fortissimo
+    "fff": (121,127), # fortississimo, maximum
+}
+
+# Optional expressive dynamics
+EXPRESSIVE_DYNAMICS = {
+    "sfz": (100,110), # sforzando, sudden accent
+    "fp":  (80,95),   # forte-piano, loud then immediately soft
+    "crescendo": None, # dynamic change, handled algorithmically
+    "decrescendo": None,
+}
+
+# === Progressions ===
+PROGRESSIONS = {
+    "jazz": {
+        "ii-V-I": ["ii","V","I"],
+        "turnaround": ["I","vi","ii","V"],
+        "modal": ["ii","V7","Imaj7","IVmaj7"],
+        "minor_ii-V-i": ["ii°","V7","i"],
+        "coltrane_changes": ["I","iii7","vi7","ii7","V7","I"],       # classic "Giant Steps" style
+        "jazz_blues": ["I7","IV7","I7","ii7","V7","I7"]
+    },
+    "pop": {
+        "pop_axis": ["I","V","vi","IV"],
+        "pop_ballad": ["vi","IV","I","V"],
+        "minor_pop": ["i","VI","III","VII"],
+        "doo_wop": ["I","vi","IV","V"],
+        "pop_vamp": ["I","IV","I","V"],
+        "sensitive_pop": ["I","vi","ii","V"],
+        "epic_pop": ["IV","I","V","vi"]
+    },
+    "rock": {
+        "classic": ["I","IV","V"],
+        "metal_drop": ["i","bVII","bVI","i"],
+        "power_chords": ["I5","IV5","V5"],
+        "grunge": ["i","bVI","bIII","bVII"]
+    },
+    "blues": {
+        "12bar": ["I","I","I","I","IV","IV","I","I","V","IV","I","V"],
+        "shuffle": ["I","IV","I","V","IV","I"],
+        "minor_blues": ["i","iv","i","v","iv","i"]
+    },
+    "funk": {
+        "jam": ["i","bVII","IV","i"],
+        "chicken_scratch": ["I7","IV7","V7"]
+    },
+    "latin": {
+        "salsa": ["I","IV","V","IV"],
+        "bossa_nova": ["Imaj7","VI7","II7","V7"]
+    },
+    "edm": {
+        "drop": ["vi","IV","I","V"],
+        "build": ["i","bVI","bIII","bVII"],
+        "uplifting": ["I","V","vi","IV"]
+    },
+    "film_cinematic": {
+        "epic": ["I","V","vi","iii","IV","I","IV","V"],
+        "tension": ["vi","IV","I","V"],
+        "suspense": ["i","VII","VI","v","i"]
+    },
+    "reggae": {
+        "one_drop": ["I","V","vi","IV"],
+        "skank": ["I","IV","V","IV"]
+    },
+    "folk": {
+        "folk_progression": ["I","V","vi","iii","IV","I"],
+        "modal_folk": ["I","ii","IV","V"]
+    },
+    "soul_rnb": {
+        "soul_progression": ["I","iii","IV","V"],
+        "motown": ["I","vi","IV","V7"]
+    },
+    "hiphop": {
+        "loop": ["vi","IV","I","V"],
+        "minor_loop": ["i","VI","III","VII"]
+    },
+    "classical": {
+        "pachelbel_canon": ["I","V","vi","iii","IV","I","IV","V"],
+        "baroque_circle": ["I","IV","ii","V","I"]
+    },
+    "circle_of_fifths": {
+        "standard": ["I","IV","vii°","iii","vi","ii","V","I"],
+        "minor_fifths": ["i","iv","vii°","iii","vi","ii°","V","i"],
+        "descending_fifths": ["I","vi","ii","V","I"], 
+        "ascending_fifths": ["I","V","ii","vi","iii","vii°","IV","I"],
+        "jazz_fifths": ["ii7","V7","Imaj7","VI7","ii7","V7","Imaj7"], 
+        "extended_minor_fifths": ["i","iv","vii°","III","VI","ii°","V","i"], 
+        "chromatic_fifths": ["I","V7/vi","vi","V7/ii","ii","V7/V","V","I"], 
+        "pop_fifths_loop": ["I","V","vi","ii","V","I"],
+        "classical_fifths_sequence": ["I","V","vi","iii","IV","ii","V","I"], 
+        "minor_jazz_loop": ["i7","IV7","ii7","V7","i7"],
+    },
+    "chromatic_borrowed": {
+        "secondary_dominants": ["I","V7/vi","vi","V7/ii","ii","V7/V","V","I"],
+        "borrowed_major": ["i","bVI","bIII","IV"]
+    },
+    "experimental": {
+        "ascending_chromatic": ["I","bII","II","bIII","III","IV"],
+        "modal_mixture": ["I","bIII","IV","vii°","I"]
+    }
+}
+
+
+# === Genres ===
 GENRES = {
     "Jazz":["jazz_ii-V-I","jazz_turnaround"],
     "Pop":["pop_axis"],
@@ -105,9 +267,7 @@ GENRES = {
     "Orchestral":["film_epic"],
 }
 
-# ----------------------------
 # DRUMS
-# ----------------------------
 DRUMS = {
     "kick":36,"snare":38,"closed_hat":42,"open_hat":46,
     "ride":51,"crash":49,"tom_low":45,"tom_mid":47,"tom_high":50,
@@ -127,9 +287,7 @@ DRUM_GROOVES = {
     "orchestral":[("kick",0.0),("snare",3.0),("crash",0.0)],
 }
 
-# ----------------------------
 # BASS PATTERNS
-# ----------------------------
 BASS_PATTERNS = {
     "pop":[0,0,0,0],
     "rock":[0,7,0,7],
@@ -162,9 +320,7 @@ SECTION_PROGS = {
     "outro":["I","I","I","I"]
 }
 
-# ----------------------------
 # INSTRUMENTS
-# ----------------------------
 GENRE_INSTRUMENTS = {
     "pop":{"piano":0,"bass":33,"melody":81},
     "rock":{"guitar":29,"bass":34,"drums":0},
@@ -192,23 +348,7 @@ ARTICULATIONS = {
     "swell": {"length":1.5, "velocity":[0.6,0.8,1.2]}, # gradual crescendo
 }
 
-# Humanization ranges (to avoid robotic feel)
-HUMANIZATION = {
-    "timing_jitter": 0.02,   # up to ±2% offset in rhythm
-    "velocity_jitter": 0.05, # up to ±5% change in dynamics
-    "swing_strength": 0.15   # push-pull feel for swing
-}
 
-# Dynamics levels (MIDI velocity ranges)
-DYNAMICS = {
-    "pp": (30,45),  # pianissimo
-    "p":  (46,60),  # piano
-    "mp": (61,75),  # mezzo-piano
-    "mf": (76,90),  # mezzo-forte
-    "f":  (91,105), # forte
-    "ff": (106,120),# fortissimo
-    "fff":(121,127) # maximum
-}
 
 # Orchestration layers (per genre / style)
 ORCHESTRATION = {
